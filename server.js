@@ -19,7 +19,6 @@ var dateJSON = {
 
 // Handle request
 app.use(function(request, response) {
-	
 	// Handle homepage request
 	// Show usage and example by public/index.html
 	if (request.url === "/") { 
@@ -37,18 +36,20 @@ app.use(function(request, response) {
 		// If route is a number
 		if (!isNaN(route)) {
 			date = new Date(parseInt(route));
-			console.log(date);
+			dateJSON.unix = parseInt(route);
 		}
 		
 		// If route is a string
 		else {
+			route = route.replace("%20", " ");
 			date = new Date(route);
+			// Convert to unix format
+			dateJSON.unix = date.getTime();
 		}
 		
 		// Handle date request
 		// Respond with a JSON format date
 		if (date.toString() !== "Invalid Date") {
-			dateJSON.unix = parseInt(route);
 			dateJSON.natural = date.toString().substring(4, date.toString().length - 24);
 			response.json(dateJSON);
 			console.log("Got a request to show a date");
