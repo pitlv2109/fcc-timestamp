@@ -64,7 +64,8 @@ app.use(function(request, response) {
 	}
 })
 
-app.listen(8080);
+// Use Heroku port
+app.listen(process.env.PORT || <default port>)
 
 console.log("Server is running at 8080");
 
